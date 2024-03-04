@@ -1,0 +1,23 @@
+APPLICATION_ID: demo
+service_description:
+  name: server
+  environment: development
+  version: 2.0.0
+servicecomb:
+  service:
+    registry:
+      address: http://10.0.1.3:30100
+  rest:
+    address: 0.0.0.0:8202
+  datacenter:
+    name: mydatacenter
+    region: my-Region
+    availableZone: my-Zone
+  metrics:
+    endpoint:
+      enabled: false
+  health:
+    endpoint:
+      enabled: false
+  inspector:
+    enabled: false
