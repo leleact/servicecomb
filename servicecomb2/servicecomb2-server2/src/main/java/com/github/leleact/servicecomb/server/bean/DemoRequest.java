@@ -13,6 +13,6 @@ public class DemoRequest {
 
     private Integer age;
 
-    @NotNull
+    //@NotNull
     private String ex;
 }

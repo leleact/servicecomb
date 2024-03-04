@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @RestSchema(schemaId = "trigger")
 @RestController
 @RequestMapping(value = "/trigger", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class TriggerController {
+
+    private static final ScheduledExecutorService SCHEDULED = new ScheduledThreadPoolExecutor(2);
 
     private static final ObjectMapper OM = new ObjectMapper();
 
@@ -36,7 +37,8 @@ public class TriggerController {
         request.setAge(1);
         HttpEntity<DemoRequest> entity = new HttpEntity<>(request);
 
-        ListenableFuture<ResponseEntity<DemoResponse>> future = template.postForEntity("cse://server/demo/person", entity, DemoResponse.class);
+        ListenableFuture<ResponseEntity<DemoResponse>> future = template.postForEntity("cse://server/demo/person",
+                entity, DemoResponse.class);
         try {
             ResponseEntity<DemoResponse> entity1 = future.get(10L, TimeUnit.SECONDS);
             DemoResponse response = OM.readValue(OM.writeValueAsString(entity1.getBody()), DemoResponse.class);
@@ -45,6 +47,28 @@ public class TriggerController {
             throw new RuntimeException(e);
         }
 
+        return "ok";
+    }
+
+    @GetMapping("/loop")
+    public String getAsyncLoopTrigger() {
+        CseAsyncRestTemplate template = new CseAsyncRestTemplate();
+        AtomicInteger count = new AtomicInteger(0);
+        SCHEDULED.scheduleAtFixedRate(() -> {
+            DemoRequest request = new DemoRequest();
+            request.setName("abc");
+            request.setAge(count.getAndIncrement());
+            HttpEntity<DemoRequest> entity = new HttpEntity<>(request);
+            ListenableFuture<ResponseEntity<DemoResponse>> future = template.postForEntity("cse://server/demo/person",
+                    entity, DemoResponse.class);
+            try {
+                ResponseEntity<DemoResponse> entity1 = future.get(10L, TimeUnit.SECONDS);
+                DemoResponse response = OM.readValue(OM.writeValueAsString(entity1.getBody()), DemoResponse.class);
+                log.info("{}", response);
+            } catch (InterruptedException | ExecutionException | TimeoutException | JsonProcessingException e) {
+                log.info(e.getMessage(), e);
+            }
+        }, 5, 60, TimeUnit.SECONDS);
         return "ok";
     }
 }

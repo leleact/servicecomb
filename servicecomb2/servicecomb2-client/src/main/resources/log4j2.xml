@@ -25,7 +25,7 @@
       <DefaultRolloverStrategy>
         <Delete basePath="${baseDir}" maxDepth="3">
           <IfFileName glob="**/${filename}-*.log.gz"/>
-          <IfLastModified age="3d"/>
+          <IfLastModified age="30d"/>
         </Delete>
       </DefaultRolloverStrategy>
     </RollingFile>
@@ -38,7 +38,7 @@
 
     <Logger name="com.github.leleact" level="trace" additivity="false">
       <AppenderRef ref="Console"/>
-      <AppenderRef ref="RollingFile" level="error"/>
+      <AppenderRef ref="RollingFile"/>
     </Logger>
   </Loggers>
 </Configuration>
