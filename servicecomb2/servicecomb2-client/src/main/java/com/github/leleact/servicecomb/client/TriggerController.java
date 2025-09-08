@@ -38,7 +38,7 @@ public class TriggerController {
         HttpEntity<DemoRequest> entity = new HttpEntity<>(request);
 
         ListenableFuture<ResponseEntity<DemoResponse>> future = template.postForEntity("cse://server/demo/person",
-                entity, DemoResponse.class);
+            entity, DemoResponse.class);
         try {
             ResponseEntity<DemoResponse> entity1 = future.get(10L, TimeUnit.SECONDS);
             DemoResponse response = OM.readValue(OM.writeValueAsString(entity1.getBody()), DemoResponse.class);
@@ -60,7 +60,7 @@ public class TriggerController {
             request.setAge(count.getAndIncrement());
             HttpEntity<DemoRequest> entity = new HttpEntity<>(request);
             ListenableFuture<ResponseEntity<DemoResponse>> future = template.postForEntity("cse://server/demo/person",
-                    entity, DemoResponse.class);
+                entity, DemoResponse.class);
             try {
                 ResponseEntity<DemoResponse> entity1 = future.get(10L, TimeUnit.SECONDS);
                 DemoResponse response = OM.readValue(OM.writeValueAsString(entity1.getBody()), DemoResponse.class);
@@ -68,7 +68,7 @@ public class TriggerController {
             } catch (InterruptedException | ExecutionException | TimeoutException | JsonProcessingException e) {
                 log.info(e.getMessage(), e);
             }
-        }, 5, 60, TimeUnit.SECONDS);
+        }, 5, 1, TimeUnit.SECONDS);
         return "ok";
     }
 }

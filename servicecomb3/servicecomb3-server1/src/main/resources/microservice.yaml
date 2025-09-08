@@ -1,10 +1,9 @@
-APPLICATION_ID: demo
-service_description:
-  name: server
-  environment: development
-  version: 1.0.0
 servicecomb:
   service:
+    application: demo
+    name: server
+    version: 1.0.0
+    environment: development
     registry:
       enabled: false
       address: http://10.0.1.3:30100
@@ -19,7 +18,11 @@ servicecomb:
         address: 0.0.0.0:6666
         group: 225.6.7.8
   rest:
-    address: 0.0.0.0:8201
+    address: 127.0.0.1:8301
+  datacenter:
+    name: my-datacenter
+    region: my-Region
+    availableZone: my-Zone
   metrics:
     endpoint:
       enabled: false

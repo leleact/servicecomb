@@ -9,17 +9,18 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
+    <module>commons-bean</module>
     <module>servicecomb1</module>
     <module>servicecomb2</module>
-    <module>commons-bean</module>
+    <module>servicecomb3</module>
   </modules>
 
   <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <log4j2.version>2.12.0</log4j2.version>
-    <lombok.version>1.18.24</lombok.version>
+    <log4j2.version>2.25.1</log4j2.version>
+    <lombok.version>1.18.38</lombok.version>
   </properties>
 
   <dependencies>
@@ -60,7 +61,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>3.14.0</version>
         <configuration>
           <compilerArgument>-parameters</compilerArgument>
         </configuration>
