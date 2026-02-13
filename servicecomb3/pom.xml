@@ -15,6 +15,7 @@
   <modules>
     <module>servicecomb3-client</module>
     <module>servicecomb3-server1</module>
+    <module>servicecomb3-edge</module>
   </modules>
 
   <properties>

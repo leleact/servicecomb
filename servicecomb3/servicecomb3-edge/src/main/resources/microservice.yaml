@@ -1,7 +1,7 @@
 servicecomb:
   service:
-    application: demo  # 应用名
-    name: client   # 微服务名称
+    application: demo
+    name: edge
     version: 1.0.0
     environment: development
     registry:
@@ -18,7 +18,7 @@ servicecomb:
         address: 0.0.0.0:6666
         group: 225.6.7.8
   rest:
-    address: 127.0.0.1:18300
+    address: 127.0.0.1:8300
   datacenter:
     name: my-datacenter
     region: my-Region
@@ -31,10 +31,3 @@ servicecomb:
       enabled: false
   inspector:
     enabled: false
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance
-  loadbalance:
-    strategy:
-      name: RoundRobin

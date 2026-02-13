@@ -4,10 +4,7 @@ import com.github.leleact.servicecomb.server.bean.DemoRequest;
 import com.github.leleact.servicecomb.server.bean.DemoResponse;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -25,6 +22,14 @@ public class DemoController {
         DemoResponse response = new DemoResponse();
         response.setAddress("add for name:" + request.getName());
         response.setEmail("xx@yy");
+        return response;
+    }
+
+    @GetMapping("/health")
+    public DemoResponse heartbeat() {
+        DemoResponse response = new DemoResponse();
+        response.setAddress("ok");
+        response.setEmail("ok");
         return response;
     }
 }
