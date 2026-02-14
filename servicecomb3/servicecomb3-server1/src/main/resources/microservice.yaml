@@ -19,6 +19,8 @@ servicecomb:
         group: 225.6.7.8
   rest:
     address: 127.0.0.1:8301
+    server:
+      compression: false
   datacenter:
     name: my-datacenter
     region: my-Region
